@@ -44,10 +44,9 @@ class Bot():
         cursor = DbOperator.get_cursor(connection)
         row = DbOperator.select(cursor, update.message.chat_id)
         if row is None:
-            update.message.reply_text('Настройки языка ещё не установлены. '
-                                      'Пожалуйста, выберите язык перевода, набрав команду: /lang')
+            update.message.reply_text(msg.unknown_lang_msg)
         else:
-            update.message.reply_text("Выбрано направление перевода: {}".format(row[1]))
+            update.message.reply_text(msg.language_msg.format(row[1]))
         DbOperator.disconnect(connection)
 
     def help(self, bot, update):
